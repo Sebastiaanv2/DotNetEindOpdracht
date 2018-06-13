@@ -34,6 +34,8 @@ public class Main extends Application {
 
         Product pr1 = new Product("banaan",5,1.20);
         Product pr2 = new Product("aardbei",8,3.50);
+        pr1.setId(1);
+        pr2.setId(2);
 
         MainService.pdList.add(pr1);
         MainService.pdList.add(pr2);
