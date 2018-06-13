@@ -26,5 +26,8 @@ namespace StoreServerLibrary
 
         [OperationContract]
         List<Product> GetInventory(int userId);
+
+        [OperationContract]
+        User FindUser(int userId);
     }
 }
