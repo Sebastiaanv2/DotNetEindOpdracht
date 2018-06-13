@@ -31,6 +31,11 @@ namespace StoreServerLibrary
             throw new NotImplementedException();
         }
 
+        public User FindUser(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Product> GetInventory(int userId)
         {
             return productsDao.GetUserInventory(userId);
