@@ -27,7 +27,7 @@ public class MainService {
 
     public void Register(String username, String password){
         System.out.println("Registering user");
-        //String register = proxy.register(username,password);
+        //String register = proxy.register(username);
         //System.out.println(register + "\n");
         System.out.println(String.format("Username: %s \n" +
                 "Password: %s", username, password));
