@@ -15,9 +15,9 @@ namespace StoreClient.StoreService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/StoreServerLibrary.domain")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserDTO", Namespace="http://schemas.datacontract.org/2004/07/StoreServerLibrary.dto")]
     [System.SerializableAttribute()]
-    public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class UserDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -26,7 +26,7 @@ namespace StoreClient.StoreService {
         private int idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private StoreClient.StoreService.Product[] inventoryField;
+        private StoreClient.StoreService.InventoryDTO[] inventoryField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string passwordField;
@@ -61,7 +61,7 @@ namespace StoreClient.StoreService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public StoreClient.StoreService.Product[] inventory {
+        public StoreClient.StoreService.InventoryDTO[] inventory {
             get {
                 return this.inventoryField;
             }
@@ -124,9 +124,118 @@ namespace StoreClient.StoreService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Product", Namespace="http://schemas.datacontract.org/2004/07/StoreServerLibrary.domain")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="InventoryDTO", Namespace="http://schemas.datacontract.org/2004/07/StoreServerLibrary.dto")]
     [System.SerializableAttribute()]
-    public partial class Product : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class InventoryDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int amountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StoreClient.StoreService.ProductDTO productField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int product_idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float total_priceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int user_idField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int amount {
+            get {
+                return this.amountField;
+            }
+            set {
+                if ((this.amountField.Equals(value) != true)) {
+                    this.amountField = value;
+                    this.RaisePropertyChanged("amount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StoreClient.StoreService.ProductDTO product {
+            get {
+                return this.productField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.productField, value) != true)) {
+                    this.productField = value;
+                    this.RaisePropertyChanged("product");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int product_id {
+            get {
+                return this.product_idField;
+            }
+            set {
+                if ((this.product_idField.Equals(value) != true)) {
+                    this.product_idField = value;
+                    this.RaisePropertyChanged("product_id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float total_price {
+            get {
+                return this.total_priceField;
+            }
+            set {
+                if ((this.total_priceField.Equals(value) != true)) {
+                    this.total_priceField = value;
+                    this.RaisePropertyChanged("total_price");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int user_id {
+            get {
+                return this.user_idField;
+            }
+            set {
+                if ((this.user_idField.Equals(value) != true)) {
+                    this.user_idField = value;
+                    this.RaisePropertyChanged("user_id");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProductDTO", Namespace="http://schemas.datacontract.org/2004/07/StoreServerLibrary.dto")]
+    [System.SerializableAttribute()]
+    public partial class ProductDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -220,34 +329,40 @@ namespace StoreClient.StoreService {
     public interface IStoreService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/Register", ReplyAction="http://tempuri.org/IStoreService/RegisterResponse")]
-        string Register(string username);
+        StoreClient.StoreService.UserDTO Register(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/Register", ReplyAction="http://tempuri.org/IStoreService/RegisterResponse")]
-        System.Threading.Tasks.Task<string> RegisterAsync(string username);
+        System.Threading.Tasks.Task<StoreClient.StoreService.UserDTO> RegisterAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/Login", ReplyAction="http://tempuri.org/IStoreService/LoginResponse")]
-        StoreClient.StoreService.User Login(string username, string password);
+        StoreClient.StoreService.UserDTO Login(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/Login", ReplyAction="http://tempuri.org/IStoreService/LoginResponse")]
-        System.Threading.Tasks.Task<StoreClient.StoreService.User> LoginAsync(string username, string password);
+        System.Threading.Tasks.Task<StoreClient.StoreService.UserDTO> LoginAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/GetProducts", ReplyAction="http://tempuri.org/IStoreService/GetProductsResponse")]
-        StoreClient.StoreService.Product[] GetProducts();
+        StoreClient.StoreService.ProductDTO[] GetProducts();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/GetProducts", ReplyAction="http://tempuri.org/IStoreService/GetProductsResponse")]
-        System.Threading.Tasks.Task<StoreClient.StoreService.Product[]> GetProductsAsync();
+        System.Threading.Tasks.Task<StoreClient.StoreService.ProductDTO[]> GetProductsAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/BuyProduct", ReplyAction="http://tempuri.org/IStoreService/BuyProductResponse")]
-        bool BuyProduct(int userId, int productId, int amount);
+        bool BuyProduct(StoreClient.StoreService.UserDTO user, int productId, int amount);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/BuyProduct", ReplyAction="http://tempuri.org/IStoreService/BuyProductResponse")]
-        System.Threading.Tasks.Task<bool> BuyProductAsync(int userId, int productId, int amount);
+        System.Threading.Tasks.Task<bool> BuyProductAsync(StoreClient.StoreService.UserDTO user, int productId, int amount);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/GetInventory", ReplyAction="http://tempuri.org/IStoreService/GetInventoryResponse")]
-        StoreClient.StoreService.Product[] GetInventory(int userId);
+        StoreClient.StoreService.InventoryDTO[] GetInventory(StoreClient.StoreService.UserDTO currentUser);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/GetInventory", ReplyAction="http://tempuri.org/IStoreService/GetInventoryResponse")]
-        System.Threading.Tasks.Task<StoreClient.StoreService.Product[]> GetInventoryAsync(int userId);
+        System.Threading.Tasks.Task<StoreClient.StoreService.InventoryDTO[]> GetInventoryAsync(StoreClient.StoreService.UserDTO currentUser);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/FindUser", ReplyAction="http://tempuri.org/IStoreService/FindUserResponse")]
+        StoreClient.StoreService.UserDTO FindUser(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStoreService/FindUser", ReplyAction="http://tempuri.org/IStoreService/FindUserResponse")]
+        System.Threading.Tasks.Task<StoreClient.StoreService.UserDTO> FindUserAsync(int userId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -277,44 +392,52 @@ namespace StoreClient.StoreService {
                 base(binding, remoteAddress) {
         }
         
-        public string Register(string username) {
+        public StoreClient.StoreService.UserDTO Register(string username) {
             return base.Channel.Register(username);
         }
         
-        public System.Threading.Tasks.Task<string> RegisterAsync(string username) {
+        public System.Threading.Tasks.Task<StoreClient.StoreService.UserDTO> RegisterAsync(string username) {
             return base.Channel.RegisterAsync(username);
         }
         
-        public StoreClient.StoreService.User Login(string username, string password) {
+        public StoreClient.StoreService.UserDTO Login(string username, string password) {
             return base.Channel.Login(username, password);
         }
         
-        public System.Threading.Tasks.Task<StoreClient.StoreService.User> LoginAsync(string username, string password) {
+        public System.Threading.Tasks.Task<StoreClient.StoreService.UserDTO> LoginAsync(string username, string password) {
             return base.Channel.LoginAsync(username, password);
         }
         
-        public StoreClient.StoreService.Product[] GetProducts() {
+        public StoreClient.StoreService.ProductDTO[] GetProducts() {
             return base.Channel.GetProducts();
         }
         
-        public System.Threading.Tasks.Task<StoreClient.StoreService.Product[]> GetProductsAsync() {
+        public System.Threading.Tasks.Task<StoreClient.StoreService.ProductDTO[]> GetProductsAsync() {
             return base.Channel.GetProductsAsync();
         }
         
-        public bool BuyProduct(int userId, int productId, int amount) {
-            return base.Channel.BuyProduct(userId, productId, amount);
+        public bool BuyProduct(StoreClient.StoreService.UserDTO user, int productId, int amount) {
+            return base.Channel.BuyProduct(user, productId, amount);
         }
         
-        public System.Threading.Tasks.Task<bool> BuyProductAsync(int userId, int productId, int amount) {
-            return base.Channel.BuyProductAsync(userId, productId, amount);
+        public System.Threading.Tasks.Task<bool> BuyProductAsync(StoreClient.StoreService.UserDTO user, int productId, int amount) {
+            return base.Channel.BuyProductAsync(user, productId, amount);
         }
         
-        public StoreClient.StoreService.Product[] GetInventory(int userId) {
-            return base.Channel.GetInventory(userId);
+        public StoreClient.StoreService.InventoryDTO[] GetInventory(StoreClient.StoreService.UserDTO currentUser) {
+            return base.Channel.GetInventory(currentUser);
         }
         
-        public System.Threading.Tasks.Task<StoreClient.StoreService.Product[]> GetInventoryAsync(int userId) {
-            return base.Channel.GetInventoryAsync(userId);
+        public System.Threading.Tasks.Task<StoreClient.StoreService.InventoryDTO[]> GetInventoryAsync(StoreClient.StoreService.UserDTO currentUser) {
+            return base.Channel.GetInventoryAsync(currentUser);
+        }
+        
+        public StoreClient.StoreService.UserDTO FindUser(int userId) {
+            return base.Channel.FindUser(userId);
+        }
+        
+        public System.Threading.Tasks.Task<StoreClient.StoreService.UserDTO> FindUserAsync(int userId) {
+            return base.Channel.FindUserAsync(userId);
         }
     }
 }

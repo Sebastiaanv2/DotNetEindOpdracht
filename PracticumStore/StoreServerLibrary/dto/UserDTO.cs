@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoreServerLibrary.domain
+namespace StoreServerLibrary.dto
 {
-    public class User
+    public class UserDTO
     {
         public int id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public float saldo { get; set; }
 
-        public List<Product> inventory { get; set; }
+        public List<InventoryDTO> inventory { get; set; }
     }
 }

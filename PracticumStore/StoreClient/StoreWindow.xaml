@@ -1,0 +1,51 @@
+﻿<Window x:Class="StoreClient.StoreWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreClient"
+        mc:Ignorable="d"
+        Title="StoreWindow" Height="319.811" Width="576.415">
+    <Grid>
+        <Label Content="Inventory" HorizontalAlignment="Left" Height="25" Margin="10,14,0,0" VerticalAlignment="Top" Width="264"/>
+        <ListBox x:Name="InventoryLB" HorizontalAlignment="Left" Height="165" VerticalAlignment="Top" Width="264" Margin="10,44,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+            ItemsSource="{Binding}" AlternationCount="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="80" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding product.name}" Grid.Column="0" />
+                        <TextBlock Text="{Binding Path=total_price, StringFormat='€ {0}'}" Grid.Column="1" />
+                        <TextBlock Text="{Binding Path=amount, StringFormat='Amount: {0}'}" Grid.Column="2" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Label Name="SaldoLBL" Content="Saldo: € 0,00" HorizontalAlignment="Left" Height="25" Margin="10,214,0,0" VerticalAlignment="Top" Width="264"/>
+        <Label Name="MessageLBL" Content="" HorizontalAlignment="Center" Height="25" Margin="10,254,0,0" VerticalAlignment="Top" Width="547"/>
+        <Label Content="Products" HorizontalAlignment="Left" Height="25" Margin="293,14,0,0" VerticalAlignment="Top" Width="264"/>
+        <ListBox x:Name="ProductsLB" HorizontalAlignment="Left" Height="165" VerticalAlignment="Top" Width="264" Margin="293,44,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+            ItemsSource="{Binding}" AlternationCount="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="80" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding name}" Grid.Column="0" />
+                        <TextBlock Text="{Binding Path=stock, StringFormat='Stock: {0}'}" Grid.Column="1" />
+                        <TextBlock Text="{Binding Path=price, StringFormat='€ {0}'}" Grid.Column="2" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBox Name="AmountTXT" PreviewTextInput="NumberValidationTextBox" Height="32" Margin="428,216,89,40"/>
+        <Button Name="OrderBTN" Content="Order" HorizontalAlignment="Left" Height="31" Margin="488,217,0,0" VerticalAlignment="Top" Width="69" RenderTransformOrigin="0.681,0.662" Click="OrderBTN_Click"/>
+    </Grid>
+</Window>

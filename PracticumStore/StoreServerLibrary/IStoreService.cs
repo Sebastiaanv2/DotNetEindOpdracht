@@ -1,4 +1,4 @@
-﻿using StoreServerLibrary.domain;
+﻿using StoreServerLibrary.dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +13,21 @@ namespace StoreServerLibrary
     public interface IStoreService
     {
         [OperationContract]
-        string Register(string username);
+        UserDTO Register(string username);
 
         [OperationContract]
-        User Login(string username, string password);
+        UserDTO Login(string username, string password);
 
         [OperationContract]
-        List<Product> GetProducts();
+        List<ProductDTO> GetProducts();
 
         [OperationContract]
-        bool BuyProduct(int userId, int productId, int amount);
+        bool BuyProduct(UserDTO user, int productId, int amount);
 
         [OperationContract]
-        List<Product> GetInventory(int userId);
+        List<InventoryDTO> GetInventory(UserDTO currentUser);
 
         [OperationContract]
-        User FindUser(int userId);
+        UserDTO FindUser(int userId);
     }
 }

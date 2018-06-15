@@ -14,21 +14,12 @@ namespace StoreClient
     /// </summary>
     public partial class App : Application
     {
-
-
         public App()
         {
-            using (StoreServiceClient storeProxy = new StoreServiceClient())
-            {
-                //Console.WriteLine(storeProxy.GetProducts());
-
-                //Console.WriteLine(storeProxy.Login("test", "test"));
-
-                foreach (Product p in storeProxy.GetInventory(1))
-                {
-                    Console.WriteLine(p.name);
-                }
-            }
+            StoreProxy = new StoreServiceClient();
         }
+
+        public StoreServiceClient StoreProxy { get; private set; }
+        public UserDTO User { get; set; }
     }
 }

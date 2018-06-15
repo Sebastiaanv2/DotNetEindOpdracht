@@ -1,5 +1,7 @@
-﻿using StoreServerLibrary.daos;
-using StoreServerLibrary.domain;
+﻿//using StoreServerLibrary.daos;
+using StoreServerLibrary.daos;
+using StoreServerLibrary.dto;
+using StoreServerLibrary.helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,48 +14,81 @@ namespace StoreServerLibrary
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "StoreService" in both code and config file together.
     public class StoreService : IStoreService
     {
-        private IProductsDao productsDao;
+        private IProductDAO productDAO;
+        private IUserDAO userDAO;
 
         public StoreService()
         {
-            productsDao = new ProductsDao();
+            // Register maps
+            MappingConfig.RegisterMaps();
+
+            // Register DAO's
+            productDAO = new ProductDAO();
+            userDAO = new UserDAO();
         }
 
-        public bool BuyProduct(int productId, int amount)
+        public bool BuyProduct(UserDTO user, int productId, int amount)
         {
-            Console.WriteLine(productId + " - " + amount);
+            ProductDTO foundProduct = productDAO.GetProduct(productId);
+
+            if (foundProduct.stock < amount) return false;
+
+            if (user.saldo < foundProduct.price * amount) return false;
+
+            // Update stock
+            foundProduct.stock -= amount;
+            productDAO.UpdateProduct(foundProduct);
+
+            // Update user saldo and add product to inventory
+            user.saldo -= foundProduct.price * amount;
+
+            // Update user saldo
+            userDAO.UpdateUser(user);
+
+            // Add new row to user inventory
+            userDAO.AddInventoryItem(user, new InventoryDTO { product = foundProduct, amount = amount });
 
             return true;
         }
 
-        public bool BuyProduct(int userId, int productId, int amount)
+        public UserDTO FindUser(int userId)
         {
-            throw new NotImplementedException();
+            return userDAO.GetUser(userId);
         }
 
-        public User FindUser(int userId)
+        public List<InventoryDTO> GetInventory(UserDTO currentUser)
         {
-            throw new NotImplementedException();
+            return userDAO.GetInventory(currentUser);
         }
 
-        public List<Product> GetInventory(int userId)
+        public List<ProductDTO> GetProducts()
         {
-            return productsDao.GetUserInventory(userId);
+            return productDAO.GetAllProducts();
         }
 
-        public List<Product> GetProducts()
+        public UserDTO Login(string username, string password)
         {
-            return productsDao.GetProductsInStock();
+            using (var context = new WebshopEntities())
+            {
+                var users = from u in context.users
+                            where u.username == username
+                            && u.password == password
+                            select u;
+
+                if(users.Count() == 1)
+                {
+                    var userDTO = AutoMapper.Mapper.Map<user, UserDTO>(users.First());
+
+                    return userDTO;
+                }
+            }
+
+            return null;
         }
 
-        public User Login(string username, string password)
+        public UserDTO Register(string username)
         {
-            throw new NotImplementedException();
-        }
-
-        public string Register(string username)
-        {
-            throw new NotImplementedException();
+            return userDAO.RegisterUser(username);
         }
 
     }

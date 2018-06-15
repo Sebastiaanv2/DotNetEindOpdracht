@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace StoreServerLibrary.daos
 {
-    public class BaseDao
+    public class BaseDAO
     {
-        protected MySqlConnectionStringBuilder connString;
+        protected WebshopEntities context;
 
-        public BaseDao()
+        public BaseDAO()
         {
-            connString = new MySqlConnectionStringBuilder();
-            connString.Server = "localhost";
-            connString.UserID = "root";
-            connString.Password = "";
-            connString.Database = "entityframework";
+            context = new WebshopEntities();
+        }
+
+        protected string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
         }
     }
 }
