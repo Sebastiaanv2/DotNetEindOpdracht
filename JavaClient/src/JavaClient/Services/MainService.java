@@ -1,80 +1,92 @@
 package JavaClient.Services;
 
-//import org.datacontract.schemas._2004._07.ShopServerLibrary.*;
-//import org.tempuri.IShopServiceProxy;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.datacontract.schemas._2004._07.storeserverlibrary.*;
+import org.tempuri.GetProducts;
+import org.tempuri.IStoreService;
+import com.microsoft.schemas._2003._10.serialization.*;
 
 import JavaClient.Models.Account;
 import JavaClient.Models.Product;
+import org.tempuri.StoreService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainService {
 
     private static int id;
-    private static boolean shopping = false;
+    private static boolean shopping = true;
     private static boolean loggedIn = false;
+    private static UserDTO user;
 
     public static ArrayList<Account> acList = new ArrayList<>();
     public static ArrayList<Product> pdList = new ArrayList<>();
 
-    //IShopServiceProxy proxy;
+    IStoreService proxy = new StoreService().getBasicHttpBindingIStoreService();
+
 
     public void OpenConnection(){
         System.out.println("Opened Connection");
-        //proxy = new IShopServiceProxy();
+        //proxy = new StoreService().getBasicHttpBindingIStoreService();
         shopping = true;
     }
 
-    public void Register(String username, String password){
+    public void Register(String username){
         System.out.println("Registering user");
-        //String register = proxy.register(username);
-        //System.out.println(register + "\n");
-        System.out.println(String.format("Username: %s \n" +
-                "Password: %s", username, password));
+        UserDTO newUser = proxy.register(username);
+        String status = "failed";
+        if(newUser != null){
+            status = "succes";
+        }
+        System.out.println(status + "\n");
+        System.out.println(String.format("Password: %s", newUser.getPassword().getValue().toString()));
     }
 
     public boolean Login(String username, String password) {
-        System.out.println("U are now logging in.");
+        UserDTO newUser = proxy.login(username, password);
         System.out.println("\nChecking your credentials");
-        int login; // = proxy.login(username, password);
-        login = 1;
-        if (login != 0) {
-            id = login;
+        if (newUser != null) {
             System.out.println("You succesfully logged in.\n");
             loggedIn = true;
+            user = newUser;
         }
         return loggedIn;
     }
 
-    public ArrayList<Product> GetProducts(){
+    public ObservableList<String> GetProducts(){
         System.out.println("All of our products\n");
-        //Product[] pArray = proxy.getAllProducts();
-        return pdList;
-    }
-
-    public void BuyProduct(){
-        System.out.println("Buy a product.");
-        //int pID = Integer.parseInt(pId);
-        //String msg = proxy.buyProduct(id, pID, 1);
-        //System.out.println(msg);
-    }
-
-    public void GetInventory(){
-        System.out.println("All your products.\n");
-        //Product[] uPArray = proxy.getBoughtProducts(id);
-        for(Product p : pdList){
-            System.out.println("Product: " + p.getName() + " aantal: " + p.getAmount());
+        ArrayOfProductDTO InvArray = proxy.getProducts();
+        ObservableList<String> outputList = FXCollections.observableArrayList();
+        for(ProductDTO p : InvArray.getProductDTO()){
+            outputList.add("Name: " + p.getName().getValue() + " Stock: " + p.getStock() +" Price: "+ p.getPrice());
         }
+        return outputList;
     }
 
-    public double GetBalance(){
-        System.out.println("All of your moneys.\n");
-        //User u = proxy.findUser(id);
+    public void BuyProduct(int index, int amount){
+        System.out.println("Buy a product.");
+        boolean status = proxy.buyProduct(user, ((int) proxy.getProducts().getProductDTO().get(index).getId().longValue()),amount);
+        System.out.println(status ? "Purchase Succesful" : "Purchase Failed");
+    }
 
-        //double uBalance = u.getBalance();
-        //System.out.println("Your Balance: €" + uBalance);
-        //return uBalance;
-        return 0;
+    public ObservableList<String> GetInventory(){
+        System.out.println("All your products.\n");
+        ArrayOfInventoryDTO uPArray = proxy.getInventory(user);
+        ObservableList<String> outputList = FXCollections.observableArrayList();
+        for(InventoryDTO p : uPArray.getInventoryDTO()){
+            outputList.add("Product: " + p.getProduct().getValue().getName().getValue() + " Amount: " + p.getAmount() +" Total Price: "+ p.getTotalPrice());
+        }
+        return outputList;
+    }
+
+    public float GetBalance(){
+        System.out.println("All of your moneys.\n");
+
+        float uBalance = user.getSaldo().floatValue();
+        System.out.println("Your Balance: €" + uBalance);
+        return uBalance;
     }
 
     public void LogOut(){

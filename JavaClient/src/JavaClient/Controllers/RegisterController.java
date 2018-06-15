@@ -14,6 +14,6 @@ public class RegisterController {
     void OnRegisterButton(){
         Account ac = new Account(UsernameField.getText());
         ac.setPassword();
-        ms.Register(ac.getUsername(),ac.getPassword());    }
+        ms.Register(ac.getUsername());    }
 
 }

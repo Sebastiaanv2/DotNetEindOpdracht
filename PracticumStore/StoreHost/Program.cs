@@ -18,7 +18,6 @@ namespace StoreHost
                 Console.WriteLine("==============================\n    Store Service Started!    \n==============================");
                 Console.ReadKey();
             }
-
         }
     }
 }

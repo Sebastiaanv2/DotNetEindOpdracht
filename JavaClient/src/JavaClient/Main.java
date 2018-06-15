@@ -40,6 +40,10 @@ public class Main extends Application {
         MainService.pdList.add(pr1);
         MainService.pdList.add(pr2);
 
+        MainService ms = new MainService();
+
+        ms.OpenConnection();
+
         launch(args);
     }
 }
