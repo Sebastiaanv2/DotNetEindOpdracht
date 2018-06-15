@@ -27,7 +27,7 @@ public class MainService {
 
     public void Register(String username, String password){
         System.out.println("Registering user");
-        //String register = proxy.register(username,password);
+        //String register = proxy.register(username);
         //System.out.println(register + "\n");
         System.out.println(String.format("Username: %s \n" +
                 "Password: %s", username, password));
@@ -46,13 +46,10 @@ public class MainService {
         return loggedIn;
     }
 
-    public void GetProducts(){
+    public ArrayList<Product> GetProducts(){
         System.out.println("All of our products\n");
         //Product[] pArray = proxy.getAllProducts();
-        for(Product p : pdList){
-            System.out.println("Product id: "+ p.getId() + " name: " + p.getName() + " for: "
-                    + p.getPrice() + " | amount left: " + p.getAmount());
-        }
+        return pdList;
     }
 
     public void BuyProduct(){
@@ -74,9 +71,10 @@ public class MainService {
         System.out.println("All of your moneys.\n");
         //User u = proxy.findUser(id);
 
-        double uBalance = u.getBalance();
-        System.out.println("Your Balance: €" + uBalance);
-        return uBalance;
+        //double uBalance = u.getBalance();
+        //System.out.println("Your Balance: €" + uBalance);
+        //return uBalance;
+        return 0;
     }
 
     public void LogOut(){
@@ -87,12 +85,6 @@ public class MainService {
     public void Quit(){
         System.out.println("You left us. :(");
         shopping = false;
-    }
-
-    private int TestFindUserId(int id){
-        for (Account ac : acList ) {
-            if()
-        }
     }
 
 }
