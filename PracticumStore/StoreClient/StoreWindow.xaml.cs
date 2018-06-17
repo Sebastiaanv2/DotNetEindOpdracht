@@ -90,9 +90,21 @@ namespace StoreClient
 
         private void OrderBTN_Click(object sender, RoutedEventArgs e)
         {
-            if (AmountTXT.Text == "" || Int32.Parse(AmountTXT.Text) == 0) return;
+            if (AmountTXT.Text == "" || Int32.Parse(AmountTXT.Text) == 0)
+            {
+                MessageLBL.Foreground = new SolidColorBrush(Colors.Red);
+                MessageLBL.Content = "Kies minimaal 1 bij amount!";
+                return;
+            }
 
             var p = ProductsLB.SelectedItem as ProductDTO;
+
+            if (p == null)
+            {
+                MessageLBL.Foreground = new SolidColorBrush(Colors.Red);
+                MessageLBL.Content = "Geen product geselecteerd!";
+                return;
+            }
 
             if (storeProxy.BuyProduct(((App)Application.Current).User, p.id, Int32.Parse(AmountTXT.Text)))
             {

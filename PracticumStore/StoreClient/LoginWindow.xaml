@@ -15,9 +15,9 @@
                         <ColumnDefinition Width="57*"/>
                         <ColumnDefinition Width="356*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Name="LoginUsernameTXT" HorizontalAlignment="Left" Height="23" Margin="51,33,0,0" TextWrapping="Wrap" Text="hallo" VerticalAlignment="Top" Width="225" Grid.Column="2"/>
+                    <TextBox Name="LoginUsernameTXT" HorizontalAlignment="Left" Height="23" Margin="51,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.Column="2"/>
                     <Label Content="Username" HorizontalAlignment="Left" Margin="40,29,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <PasswordBox Name="LoginPasswordTXT" HorizontalAlignment="Left" Height="23" Margin="51,64,0,0" VerticalAlignment="Top" Width="225" Grid.Column="2" Password="ollah"/>
+                    <PasswordBox Name="LoginPasswordTXT" HorizontalAlignment="Left" Height="23" Margin="51,64,0,0" VerticalAlignment="Top" Width="225" Grid.Column="2"/>
                     <Label Content="Password" HorizontalAlignment="Left" Margin="40,60,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <Label Name="LoginMessageLBL" HorizontalAlignment="Left" Margin="40,105,0,0" VerticalAlignment="Top" Width="313" Grid.Column="1" Grid.ColumnSpan="2" />
                     <Button Name="LoginBTN" Content="Login" HorizontalAlignment="Left" Margin="201,136,0,0" VerticalAlignment="Top" Width="75" Click="LoginBTN_Click" Grid.Column="2"/>
